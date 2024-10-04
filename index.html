@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<!--
+	Aerial by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+	<head>
+		<title>TawnyEye</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+
+				<!-- Header -->
+					<header id="header">
+						
+						<h1>Hello !!!</h1>
+
+						<!-- Paragraph where the number of visits will be displayed -->
+						<p>Number of visits: <span id="visitCount"></span></p> 
+
+					</header>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<span class="copyright">&copy; This webpage has been created as a part of the <a href="https://cloudresumechallenge.dev/docs/the-challenge/aws/"> AWS Cloud Resume Challenge</a>.</span>
+					</footer>
+
+			</div>
+		</div>
+		<script>
+			window.onload = function() { document.body.classList.remove('is-preload'); }
+			window.ontouchmove = function() { return false; }
+			window.onorientationchange = function() { document.body.scrollTop = 0; }
+
+			//API Gateway Invoke URL
+			const apiUrl = 'https://zc7x53oxha.execute-api.us-east-1.amazonaws.com/prod/visit-count';
+
+			// Fetch the visit count from the API
+			fetch(apiUrl)
+            .then(response => response.json()) // Convert the API response to JSON format
+            .then(data => {
+
+				 // Update the content of the span with id 'visitCount' to display the visit count
+                document.getElementById('visitCount').textContent = data.visit_count; 
+
+            })
+            .catch(error => console.error('Error fetching visit count:', error)); // Log any errors that occur during fetch
+		</script>
+	</body>
+</html>
