@@ -25,3 +25,7 @@ jobs:
       # Step 3: Sync files with the S3 bucket
       - name: Deploy to S3
         run: aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".github/*"
+
+      # CloudFront Cache Invalidation
+      - name: CloudFront Cache Invalidation
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"  # Invalidate CloudFront cache
